@@ -12,6 +12,9 @@ export default function AttendanceDetailsPage() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
+  const BASE_URL = "https://cq-portal-backend.onrender.com"
+
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const userId = params.get("userId");
@@ -33,7 +36,7 @@ export default function AttendanceDetailsPage() {
     };
     setEmployee(emp);
 
-    fetch(`http://localhost:5000/api/attendance/${userId}`)
+    fetch(`${BASE_URL}/api/attendance/${userId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load attendance records");
         return res.json();
