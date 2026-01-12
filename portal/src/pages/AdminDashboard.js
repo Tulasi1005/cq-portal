@@ -18,6 +18,9 @@ export default function AdminDashboard() {
     "2026-04-03", "2026-08-15", "2026-10-02", "2026-12-25",
   ];
 
+  const BASE_URL = "https://cq-portal-backend.onrender.com"
+
+
   useEffect(() => {
     if (localStorage.getItem("role") !== "admin") {
       window.location.href = "/";
@@ -28,7 +31,7 @@ export default function AdminDashboard() {
     setLoading(true);
     setSelectedBranch(branch);
     try {
-      const res = await fetch(`http://localhost:5000/api/attendance/branch/${encodeURIComponent(branch)}`);
+      const res = await fetch(`${BASE_URL}/api/attendance/branch/${encodeURIComponent(branch)}`);
       if (!res.ok) throw new Error("Failed to fetch attendance");
       const data = await res.json();
       setBranchAttendance(data);
@@ -119,7 +122,7 @@ export default function AdminDashboard() {
         branchAttendance.map(async (emp, rowIndex) => {
           let fullRecords = [];
           try {
-            const res = await fetch(`http://localhost:5000/api/attendance/${emp.userId}`);
+            const res = await fetch(`${BASE_URL}/api/attendance/${emp.userId}`);
             if (res.ok) fullRecords = await res.json();
           } catch (e) {
             console.warn(`No data for ${emp.userId}`);
