@@ -13,6 +13,9 @@ export default function UserDashboard() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
+  const BASE_URL = "https://cq-portal-backend.onrender.com"
+
+
   // CHANGE THIS TO YOUR HR/ADMIN EMAIL
   const HR_EMAIL = "hr@yourcompany.com"; // ← Update this!
 
@@ -70,7 +73,7 @@ ${user.email}
       }
     }
 
-    fetch(`http://localhost:5000/api/attendance/${userId}`)
+    fetch(`${BASE_URL}/api/attendance/${userId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load attendance");
         return res.json();
@@ -144,7 +147,7 @@ ${user.email}
     const date = now.toISOString().split("T")[0];
     const checkInStr = now.toTimeString().slice(0, 8);
 
-    fetch(`http://localhost:5000/api/attendance/${userId}`, {
+    fetch(`${BASE_URL}/api/attendance/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ date, checkIn: checkInStr, reason }),
@@ -219,7 +222,7 @@ ${user.email}
       payload.requestedAt = checkOutStr;
     }
 
-    fetch(`http://localhost:5000/api/attendance/${userId}`, {
+    fetch(`${BASE_URL}/api/attendance/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
